@@ -1,70 +1,77 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>LiveChat Integration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
     <style>
-        * {
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-        body {
+            font-family: system-ui, sans-serif;
+            background: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             height: 100vh;
-            width: 100vw;
-            overflow: hidden;
         }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
+        .loader {
+            text-align: center;
+            color: white;
         }
-        /* LiveChat Floating Button */
-        .livechat-floating {
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #334155;
+            border-top-color: #22d3ee;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        a {
+            color: #22d3ee;
+            margin-top: 20px;
+            display: inline-block;
+        }
+        /* LiveChat floating */
+        .livechat-btn {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 9999;
-        }
-        .chat-toggle {
+            bottom: 20px;
+            right: 20px;
             width: 60px;
             height: 60px;
-            background: linear-gradient(145deg, #1e293b, #0f172a);
+            background: linear-gradient(135deg, #1e293b, #0f172a);
             border-radius: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-            border: 1px solid rgba(56,189,248,0.5);
             font-size: 30px;
-            transition: 0.2s;
-        }
-        .chat-toggle:hover {
-            transform: scale(1.08);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 1px solid #22d3ee;
+            z-index: 9999;
         }
         .chat-panel {
             position: fixed;
-            bottom: 100px;
-            right: 24px;
-            width: 380px;
+            bottom: 95px;
+            right: 20px;
+            width: 350px;
             max-width: calc(100vw - 40px);
-            height: 500px;
-            max-height: 65vh;
+            height: 450px;
             background: #111827;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            border-radius: 20px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
             transform: scale(0.9);
             opacity: 0;
             visibility: hidden;
-            transition: all 0.2s ease;
-            transform-origin: bottom right;
+            transition: 0.2s;
             border: 1px solid #334155;
+            z-index: 9998;
         }
         .chat-panel.open {
             transform: scale(1);
@@ -73,63 +80,54 @@
         }
         .chat-header {
             background: #0f172a;
-            padding: 12px 16px;
+            padding: 12px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
             border-bottom: 1px solid #334155;
         }
-        .chat-header h4 {
-            color: #e2e8f0;
-            font-size: 15px;
-        }
+        .chat-header span { color: white; }
         .close-chat {
-            background: rgba(255,255,255,0.05);
+            background: none;
             border: none;
-            color: #cbd5e1;
-            width: 28px;
-            height: 28px;
-            border-radius: 20px;
+            color: #94a3b8;
+            font-size: 20px;
             cursor: pointer;
-            font-size: 16px;
-        }
-        .close-chat:hover {
-            background: #ef4444;
         }
         .chat-body {
             flex: 1;
-            background: #0f172a;
             overflow: auto;
-        }
-        @media (max-width: 640px) {
-            .chat-panel { width: 300px; right: 16px; bottom: 85px; }
-            .chat-toggle { width: 52px; height: 52px; font-size: 26px; }
+            background: #0f172a;
         }
     </style>
 </head>
 <body>
-    <iframe src="https://zerovoxynstore.id/" title="Website Target"></iframe>
-    <div class="livechat-floating">
-        <div class="chat-toggle" id="chatToggleBtn">💬</div>
-        <div class="chat-panel" id="chatPanel">
-            <div class="chat-header">
-                <h4>💬 LiveChat Support</h4>
-                <button class="close-chat" id="closeChatBtn">✕</button>
-            </div>
-            <div class="chat-body" id="chatBody">
-                <div style="background:#1e293b; padding:20px; text-align:center; border-radius:16px; height:100%; display:flex; align-items:center; justify-content:center; flex-direction:column;"><div style="font-size:48px; margin-bottom:10px;">💬</div><div style="font-weight:bold; margin-bottom:5px; color:#e2e8f0;">LiveChat Siap Dipasang</div><div style="font-size:12px; color:#94a3b8;">Masukkan ID/embed code di generator</div></div>
-            </div>
+    <div class="loader">
+        <div class="spinner"></div>
+        <h3>Mengarahkan ke website...</h3>
+        <p>Jika tidak otomatis, <a href="https://zerovoxynstore.id/" target="_blank">klik disini</a></p>
+    </div>
+
+    <div class="livechat-btn" id="chatBtn">💬</div>
+    <div class="chat-panel" id="chatPanel">
+        <div class="chat-header">
+            <span>💬 LiveChat</span>
+            <button class="close-chat" id="closeBtn">✕</button>
+        </div>
+        <div class="chat-body" id="chatBody">
+            https://embed.tawk.to/65de16139131ed19d972525f/1hnlocg82
         </div>
     </div>
+
     <script>
-        var toggle = document.getElementById("chatToggleBtn");
+        // Redirect otomatis ke website
+        window.location.href = "https://zerovoxynstore.id/";
+    </script>
+    <script>
+        var btn = document.getElementById("chatBtn");
         var panel = document.getElementById("chatPanel");
-        var close = document.getElementById("closeChatBtn");
-        function openPanel() { panel.classList.add("open"); }
-        function closePanel() { panel.classList.remove("open"); }
-        toggle.onclick = function() { if (panel.classList.contains("open")) closePanel(); else openPanel(); };
-        close.onclick = closePanel;
-        document.addEventListener("click", function(e) { if (!panel.contains(e.target) && !toggle.contains(e.target) && panel.classList.contains("open")) { closePanel(); } });
+        var close = document.getElementById("closeBtn");
+        btn.onclick = function() { panel.classList.toggle("open"); };
+        close.onclick = function() { panel.classList.remove("open"); };
     </script>
 </body>
 </html>
